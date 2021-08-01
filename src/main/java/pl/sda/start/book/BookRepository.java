@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 class BookRepository {
@@ -20,5 +21,13 @@ class BookRepository {
 
     List<Book> findAll() {
         return bookList;
+    }
+
+    Optional<Book> findById(Integer index) {
+        try {
+            return Optional.of(bookList.get(index));
+        } catch (IndexOutOfBoundsException e) {
+            return Optional.empty();
+        }
     }
 }
