@@ -2,21 +2,16 @@ package pl.sda.start.book;
 
 import org.springframework.stereotype.Repository;
 
-import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
 class BookRepository {
-    private List<Book> bookList;
+    private final List<Book> bookList;
 
-    @PostConstruct
-    void addSampleBooks() {
-        bookList = new ArrayList<>();
-        bookList.add(new Book("W pustyni i w Puszczy"));
-        bookList.add(new Book("Janko Muzykant"));
-        bookList.add(new Book("Zbrodnia Ikara"));
+    public BookRepository() {
+        this.bookList = new ArrayList<>();
     }
 
     List<Book> findAll() {
@@ -29,5 +24,17 @@ class BookRepository {
         } catch (IndexOutOfBoundsException e) {
             return Optional.empty();
         }
+    }
+
+    void add(Book book) {
+        bookList.add(book);
+    }
+
+    void delete(int id) {
+        bookList.remove(id);
+    }
+
+    Optional<Book> findByTitle(String title) {
+        return bookList.stream().filter(book -> book.getTitle().equalsIgnoreCase(title)).findFirst();
     }
 }

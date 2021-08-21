@@ -1,9 +1,17 @@
 package pl.sda.start.book;
 
 class Book {
-    private final String title;
+
+    private String title;
+
+    public Book() {
+    }
 
     public Book(String title) {
+        this.title = title;
+    }
+
+    public void setTitle(String title) {
         this.title = title;
     }
 
@@ -13,6 +21,6 @@ class Book {
 
     @Override
     public String toString() {
-        return "book title: " + title;
+        return "Book title: " + title;
     }
 }

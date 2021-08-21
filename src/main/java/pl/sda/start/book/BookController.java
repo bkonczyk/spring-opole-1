@@ -1,9 +1,7 @@
 package pl.sda.start.book;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,5 +28,26 @@ class BookController {
     @GetMapping("/random")
     Book getRandomBook() {
         return service.getRandomBook();
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    void add(@RequestBody Book book) {
+        service.add(book);
+    }
+
+    @DeleteMapping("/{id}")
+    void delete(@PathVariable Integer id) {
+        service.delete(id);
+    }
+
+    @PutMapping("/{id}")
+    void update(@PathVariable Integer id, @RequestBody Book book) {
+        service.update(id, book);
+    }
+
+    @GetMapping("/search")
+    public Book searchBook(@RequestParam String title) {
+        return service.findByTitle(title);
     }
 }
